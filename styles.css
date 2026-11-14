@@ -1034,13 +1034,13 @@ body:has(#visitor-map) form button {
   }
 
   .site-header .brand {
-    flex: 0 1 220px !important;
-    width: 220px !important;
+    flex: 0 1 240px !important;
+    width: 240px !important;
     max-width: calc(100% - 56px) !important;
   }
 
   .site-header .brand img {
-    width: 220px !important;
+    width: 240px !important;
     max-width: 100% !important;
     height: auto !important;
   }
@@ -1134,12 +1134,12 @@ body:has(#visitor-map) form button {
 /* Very small phones */
 @media (max-width: 360px) {
   .site-header .brand {
-    flex-basis: 145px !important;
-    width: 145px !important;
+    flex-basis: 160px !important;
+    width: 160px !important;
   }
 
   .site-header .brand img {
-    width: 145px !important;
+    width: 160px !important;
   }
 }
 
