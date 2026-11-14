@@ -7,6 +7,7 @@ for (const logo of document.querySelectorAll('.tool img[data-fallback], .social-
     logo.hidden = true;
   }, { once: false });
 }
+const CONTACT_API_ORIGIN = location.hostname === 'mr-kura.github.io' ? 'https://mr-kura.pages.dev' : '';
 const forms = document.querySelectorAll('[data-form]');
 for (const form of forms) {
   form.addEventListener('submit', async (event) => {
@@ -16,8 +17,8 @@ for (const form of forms) {
     const data = Object.fromEntries(new FormData(form).entries());
     status.textContent = 'Sending…'; button.disabled = true;
     try {
-      const endpoint = form.dataset.form === 'hire' ? 'https://mr-kura.pages.dev/api/hire' : 'https://mr-kura.pages.dev/api/contact';
-      const response = await fetch(endpoint, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data) });
+      const endpoint = form.dataset.form === 'hire' ? '/api/hire' : '/api/contact';
+      const response = await fetch(`${CONTACT_API_ORIGIN}${endpoint}`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data) });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || 'Unable to send your message.');
       status.textContent = 'Thank you. Your message has been sent.'; form.reset();
