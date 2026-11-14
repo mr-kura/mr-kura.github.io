@@ -778,3 +778,159 @@ body:has(#visitor-map) form button {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* =========================================
+   MR KURA — RESPONSIVE MOBILE NAVIGATION
+========================================= */
+
+.site-header {
+  position: relative;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.site-header .desktop-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+}
+
+.site-header .mobile-menu {
+  display: none;
+}
+
+.site-header .desktop-nav a {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* Mobile and tablet */
+@media (max-width: 700px) {
+  .site-header {
+    width: calc(100% - 24px) !important;
+    min-height: 82px;
+    margin-inline: auto !important;
+    padding: 8px 0 !important;
+    gap: 8px;
+  }
+
+  .site-header .brand {
+    display: flex !important;
+    align-items: center;
+    flex: 0 1 220px !important;
+    width: 220px !important;
+    max-width: calc(100% - 56px) !important;
+    min-width: 0;
+    overflow: visible;
+  }
+
+  .site-header .brand img {
+    display: block !important;
+    width: 220px !important;
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: contain;
+  }
+
+  .site-header .desktop-nav {
+    display: none !important;
+  }
+
+  .site-header .mobile-menu {
+    display: block !important;
+    position: relative;
+    flex: 0 0 44px;
+    margin-left: auto;
+    z-index: 1002;
+  }
+
+  .site-header .mobile-menu summary {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 8px !important;
+    margin: 0;
+    cursor: pointer;
+    list-style: none;
+    border: 1px solid #e9eaf0;
+    border-radius: 9px;
+    background: #fff;
+  }
+
+  .site-header .mobile-menu summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .site-header .mobile-menu summary::marker {
+    content: "";
+  }
+
+  .site-header .mobile-menu summary span {
+    display: block;
+    width: 23px;
+    height: 2px;
+    flex: 0 0 2px;
+    background: #171923;
+    border-radius: 3px;
+  }
+
+  .site-header .mobile-menu nav {
+    display: none !important;
+    position: absolute !important;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 220px;
+    padding: 8px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    background: #fff;
+    border: 1px solid #e9eaf0;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .14);
+    z-index: 1003;
+  }
+
+  .site-header .mobile-menu[open] nav {
+    display: flex !important;
+  }
+
+  .site-header .mobile-menu nav a {
+    display: block !important;
+    width: 100%;
+    padding: 13px 14px !important;
+    color: #171923 !important;
+    font-size: 14px !important;
+    font-weight: 600;
+    text-decoration: none !important;
+    white-space: nowrap;
+    border-radius: 8px;
+    background: transparent;
+  }
+
+  .site-header .mobile-menu nav a:hover {
+    color: #3949ab !important;
+    background: #f6f7fb;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+  .site-header .brand {
+    flex-basis: 145px !important;
+    width: 145px !important;
+  }
+
+  .site-header .brand img {
+    width: 145px !important;
+  }
+}
