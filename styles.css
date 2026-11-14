@@ -1037,6 +1037,7 @@ body:has(#visitor-map) form button {
     flex: 0 1 240px !important;
     width: 240px !important;
     max-width: calc(100% - 56px) !important;
+    pointer-events: none !important;
   }
 
   .site-header .brand img {
