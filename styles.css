@@ -995,6 +995,7 @@ body:has(#visitor-map) form button {
 }
 
 .site-header .brand {
+  pointer-events: none !important;
   display: flex !important;
   align-items: center;
   flex: 0 1 auto !important;
@@ -1212,7 +1213,156 @@ body:has(#visitor-map) form button {
   cursor: wait;
 }
 
-/* Keep the header logo non-clickable on desktop and mobile */
-.site-header .brand {
+/* Prevent taps directly targeting ordinary text */
+body :is(
+  p, h1, h2, h3, h4, h5, h6,
+  span, strong, em, small, blockquote, li
+) {
   pointer-events: none !important;
+}
+
+/* Keep interactive elements working */
+a,
+button,
+input,
+textarea,
+select,
+label,
+summary,
+[role="button"],
+[contenteditable="true"] {
+  pointer-events: auto !important;
+}
+
+/* Remove blue tap highlight on mobile */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a,
+button,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Remove mobile navigation tap and focus highlights */
+.site-header .mobile-menu summary,
+.site-header .mobile-menu nav,
+.site-header .mobile-menu nav a {
+  -webkit-tap-highlight-color: transparent !important;
+  outline: none !important;
+}
+
+.site-header .mobile-menu summary:focus,
+.site-header .mobile-menu summary:active,
+.site-header .mobile-menu nav a:focus,
+.site-header .mobile-menu nav a:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Prevent temporary touch feedback on mobile navigation */
+@media (hover: none) and (pointer: coarse) {
+  .site-header .mobile-menu summary,
+  .site-header .mobile-menu summary:hover,
+  .site-header .mobile-menu summary:active,
+  .site-header .mobile-menu summary:focus,
+  .site-header .mobile-menu summary:focus-visible {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    border-color: #e9eaf0 !important;
+  }
+
+  .site-header .mobile-menu nav a,
+  .site-header .mobile-menu nav a:hover,
+  .site-header .mobile-menu nav a:active,
+  .site-header .mobile-menu nav a:focus,
+  .site-header .mobile-menu nav a:focus-visible {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    border-color: transparent !important;
+    background: transparent !important;
+    color: #171923 !important;
+  }
+}
+
+/* Keep the mobile hamburger visually unchanged when tapped */
+@media (hover: none) and (pointer: coarse) {
+  .site-header .mobile-menu > summary,
+  .site-header .mobile-menu > summary:hover,
+  .site-header .mobile-menu > summary:active,
+  .site-header .mobile-menu > summary:focus,
+  .site-header .mobile-menu > summary:focus-visible,
+  .site-header .mobile-menu[open] > summary {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: #fff !important;
+    border: 1px solid #e9eaf0 !important;
+    color: #171923 !important;
+    filter: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Disable blue tap highlights throughout the entire website */
+html,
+body,
+*,
+*::before,
+*::after {
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+/* Remove browser focus and active visual effects */
+*:focus,
+*:focus-visible,
+*:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Prevent hover feedback from appearing after taps on touchscreens */
+@media (hover: none) and (pointer: coarse) {
+  .primary:hover {
+    background: var(--blue) !important;
+    transform: none !important;
+  }
+
+  .filter-button:hover:not(.active) {
+    background: transparent !important;
+    color: #666d7b !important;
+    border-color: transparent !important;
+  }
+
+  .social-link:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    color: #3f4552 !important;
+  }
+
+  .site-header .desktop-nav a:hover {
+    color: #555d72 !important;
+  }
+
+  .site-header .mobile-menu nav a:hover {
+    background: transparent !important;
+    color: #171923 !important;
+  }
+
+  .observatory-page .back-link:hover {
+    background: transparent !important;
+    border-color: transparent !important;
+    color: #646a78 !important;
+  }
+
+  .admin-delete-button:hover {
+    background: #fff7f7 !important;
+  }
 }
