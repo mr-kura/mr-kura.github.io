@@ -8,7 +8,16 @@ const OBSERVATORY_API_ORIGIN = location.hostname === 'mr-kura.github.io' ? 'http
   const params = new URLSearchParams(location.search);
   const slug = params.get('entry');
 
+  const CACHE_KEY = 'observatory-entries-v1';
+
   let entries = [];
+
+  try {
+    const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+    if (Array.isArray(cached)) entries = cached;
+  } catch {
+    // Continue without browser cache.
+  }
 
   const node = (tag, cls, value) => {
     const el = document.createElement(tag);
@@ -89,6 +98,22 @@ const OBSERVATORY_API_ORIGIN = location.hostname === 'mr-kura.github.io' ? 'http
   };
 
   const loadEntries = async () => {
+    // Display saved entries immediately while the API refreshes.
+    if (entries.length && !slug) {
+      results.hidden = false;
+      detail.hidden = true;
+      renderList();
+    } else if (entries.length && slug) {
+      const cachedEntry = entries.find(item => item.slug === slug);
+
+      if (cachedEntry) {
+        controls?.setAttribute('hidden', '');
+        results.hidden = true;
+        detail.hidden = false;
+        renderDetail(cachedEntry);
+      }
+    }
+
     try {
       const response = await fetch(`${OBSERVATORY_API_ORIGIN}/api/observatory`, {
         headers: { Accept: 'application/json' },
@@ -107,12 +132,20 @@ const OBSERVATORY_API_ORIGIN = location.hostname === 'mr-kura.github.io' ? 'http
 
       entries = data.entries;
 
+      try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify(entries));
+      } catch {
+        // Continue if browser storage is unavailable.
+      }
+
     } catch (error) {
       console.error('Observatory loading error:', error);
 
-      entries = Array.isArray(window.OBSERVATORY_ENTRIES)
-        ? window.OBSERVATORY_ENTRIES
-        : [];
+      if (!entries.length) {
+        entries = Array.isArray(window.OBSERVATORY_ENTRIES)
+          ? window.OBSERVATORY_ENTRIES
+          : [];
+      }
 
       if (!entries.length) {
         results.replaceChildren(
