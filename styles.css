@@ -1211,3 +1211,8 @@ body:has(#visitor-map) form button {
   opacity: .55;
   cursor: wait;
 }
+
+/* Keep the header logo non-clickable on desktop and mobile */
+.site-header .brand {
+  pointer-events: none !important;
+}
